@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Terminal Scrolling Text</title>
+    <style>
+      /* Terminal CSS */
+      #terminal {
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 16px;
+        line-height: 1.5;
+        background-color: #000;
+        color: #fff;
+        padding: 10px;
+        height: 110px;
+        overflow-y: scroll;
+      }
+      #terminal::-webkit-scrollbar {
+        width: 10px;
+      }
+      #terminal::-webkit-scrollbar-track {
+        background-color: #1c1c1c;
+      }
+      #terminal::-webkit-scrollbar-thumb {
+        background-color: #888;
+      }
+      #terminal .prompt {
+        color: #0f0;
+      }
+      /* Hide scrollbar arrows */
+      #terminal::-webkit-scrollbar-button {
+        display: none;
+      }
+      /* Keep scrollbar at bottom */
+      #terminal-wrapper {
+        height: 400px;
+        position: relative;
+      }
+      #terminal-wrapper:before {
+        content: "";
+        display: block;
+        height: 10000px;
+        margin-top: -10000px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="terminal-wrapper">
+      <div id="terminal"></div>
+    </div>
+    <script>
+      // Define the array of text to scroll through
+var textArray=['Loading...','Searching for the meaning of life...','Initializing universal constants...','Creating parallel universes...','Calculating the meaning of existence...','Simulating reality...','Running low on coffee...','Attempting to create a black hole...','Quantum entanglement successful.','Generating endless loop...','Realigning quantum particles...','Finalizing...','Analyzing cosmic radiation...','Breaking through the Matrix...','Cracking the enigma...','Decrypting the Vigenère Cipher...','Breaking the RSA encryption...','Cracking the MD5 hash...','Analyzing quantum mechanics...','Studying the Higgs Boson...','Investigating the Multiverse...','Observing the cosmic microwave background...','Measuring the neutrino oscillation...','Exploring the properties of dark matter...','Probing the black hole event horizon...','Simulating the big bang...','Creating virtual particles...','Experimenting with quantum entanglement...','Testing the uncertainty principle...','Exploring the human mind...','Investigating the neuroplasticity...','Studying the cognitive psychology...','Analyzing the effects of drugs...','Investigating the brain waves...','Probing the emotional intelligence...','Researching the development of language...','Experimenting with memory recall...','Investigating the dream state...','Studying the effects of sleep deprivation...','Exploring the human perception...','Testing the visual illusions...','Investigating the auditory processing...','Analyzing the olfactory sensitivity...','Probing the taste receptors...','Exploring the human physiology...','Investigating the neuroendocrinology...','Studying the circadian rhythm...','Analyzing the metabolism...','Probing the genetics...','Testing the immune system...','Testing the limits of the universe...','Exploring the mysteries of quantum gravity...','Cracking the mysteries of time travel...','Calculating the mysteries of cosmic strings...','Simulating the origins of the universe...','Searching for the origins of life...','Investigating the laws of entropy...','Exploring the power of artificial intelligence...','Analyzing the possibilities of extraterrestrial life...','Investigating the laws of thermodynamics...','Simulating the formation of galaxies...','Breaking the laws of physics...','Exploring the mysteries of dark energy...','Searching for the secrets of black holes...','Calculating the mysteries of dark matter...','Simulating the behavior of quarks and gluons...','Investigating the possibilities of parallel dimensions...','Breaking the laws of relativity...','Exploring the mysteries of the quantum world...','Searching for the secrets of the Higgs boson...','Calculating the mysteries of gravitational waves...','Simulating the behavior of cosmic rays...','Investigating the possibilities of a multiverse...','Breaking the mysteries of the big bang...','Exploring the mysteries of cosmic inflation...','Searching for the secrets of antimatter...','Calculating the mysteries of cosmic rays...','Simulating the behavior of dark energy...','Investigating the possibilities of wormholes...','Breaking the laws of causality...','Exploring the mysteries of black hole mergers...','Searching for the secrets of the cosmic web...','Calculating the mysteries of quasar formation...','Simulating the behavior of supernovas...','Investigating the possibilities of interdimensional travel...','Breaking the mysteries of the cosmic microwave background...','Exploring the mysteries of cosmic filaments...','Searching for the secrets of cosmic strings...','Calculating the mysteries of cosmic voids...','Simulating the behavior of cosmic dust...','Loading...','Searching for the meaning of life...','Initializing universal constants...','Creating parallel universes...','Calculating the meaning of existence...','Simulating reality...','Running low on coffee...','Attempting to create a black hole...','Quantum entanglement successful.','Generating endless loop...','Realigning quantum particles...','Finalizing...','Analyzing cosmic radiation...','Breaking through the Matrix...','Cracking the enigma...','Decrypting the Vigenère Cipher...','Breaking the RSA encryption...','Cracking the MD5 hash...','Analyzing quantum mechanics...','Studying the Higgs Boson...','Investigating the Multiverse...','Observing the cosmic microwave background...','Measuring the neutrino oscillation...','Exploring the properties of dark matter...','Probing the black hole event horizon...','Simulating the big bang...','Creating virtual particles...','Experimenting with quantum entanglement...','Testing the uncertainty principle...','Exploring the human mind...','Investigating the neuroplasticity...','Studying the cognitive psychology...','Analyzing the effects of drugs...','Investigating the brain waves...','Probing the emotional intelligence...','Researching the development of language...','Experimenting with memory recall...','Investigating the dream state...','Studying the effects of sleep deprivation...','Exploring the human perception...','Testing the visual illusions...','Investigating the auditory processing...','Analyzing the olfactory sensitivity...','Probing the taste receptors...','Exploring the human physiology...','Investigating the neuroendocrinology...','Studying the circadian rhythm...','Analyzing the metabolism...','Probing the genetics...','Testing the immune system...','Analyzing gravitational waves...','Exploring the mysteries of dark energy...','Researching the nature of time...','Calculating the entropy of the universe...','Simulating quantum computers...','Probing the limits of human endurance...','Investigating the nature of consciousness...','Decrypting ancient codes...','Studying the effects of psychedelics on the brain...','Testing the boundaries of human perception...','Investigating the intricacies of quantum field theory...','Exploring the connection between music and emotion...','Analyzing the human microbiome...','Probing the mysteries of quantum gravity...','Studying the impact of artificial intelligence on society...','Researching the possibilities of interstellar travel...','Calculating the probability of extraterrestrial life...','Exploring the dynamics of galaxy formation...','Investigating the mysteries of the human genome...','Analyzing the effects of climate change on ecosystems...','Probing the mysteries of the universe with gravitational lensing...','Studying the intricacies of quantum teleportation...','Researching the impact of nutrition on health and longevity...','Calculating the risk of asteroid impacts on Earth...','Exploring the potential of renewable energy sources...','Investigating the effects of stress on the body and mind...','Analyzing the benefits and risks of gene editing...','Probing the possibilities of faster-than-light travel...',]
+
+      // Define the default lines per second and current index
+      var linesPerSecond = 1;
+      var currentIndex = 0;
+
+      // Get the terminal element
+      var terminal = document.getElementById("terminal");
+
+      // Set the initial interval delay time to match the default lines per second
+      var intervalFunction = function() {
+        // Get the current line of text and append it to the terminal
+        var currentLine = textArray[currentIndex];
+        terminal.innerHTML += currentLine + "<br>";
+
+        // Increment the current index and wrap around if necessary
+        currentIndex = (currentIndex + 1) % textArray.length;
+
+        // Set a new random number of lines per second between 1 and 6
+        linesPerSecond = Math.floor(Math.random() * 15) + 1;
+
+        // Scroll the terminal to the bottom
+        terminal.scrollTop = terminal.scrollHeight;
+
+        // Clear the previous interval and set a new one with the updated delay time
+        clearInterval(intervalId);
+        intervalId = setInterval(intervalFunction, 1000 / linesPerSecond);
+      };
+      var intervalId = setInterval(intervalFunction, 1000 / linesPerSecond);
+    </script>
+  </body>
+</html>
